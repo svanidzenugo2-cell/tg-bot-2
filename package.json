@@ -1,8 +1,8 @@
 {
-  "name": "telegram-railway-mini-app",
+  "name": "telegram-mini-app-bot",
   "version": "1.0.0",
   "private": true,
-  "description": "Telegram Mini App bot hosted on Railway",
+  "description": "Telegram bot with image and Mini App button",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
