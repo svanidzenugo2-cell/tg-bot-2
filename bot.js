@@ -1,13 +1,16 @@
+```js
 const path = require("path");
 const express = require("express");
 const { Telegraf, Markup } = require("telegraf");
 
-const BOT_TOKEN = process.env.BOT_TOKEN;
+const BOT_TOKEN =
+  "8918769880:AAEI-Erl_NvarDFxtxVSQd_UpMHWHUWMFbs";
+
 const WEB_APP_URL = process.env.WEB_APP_URL;
 const PORT = Number(process.env.PORT) || 3000;
 
 if (!BOT_TOKEN) {
-  console.error("Missing BOT_TOKEN environment variable.");
+  console.error("Missing Telegram bot token.");
   process.exit(1);
 }
 
@@ -32,6 +35,7 @@ if (parsedUrl.protocol !== "https:") {
 
 const app = express();
 const bot = new Telegraf(BOT_TOKEN);
+
 const publicDirectory = path.join(__dirname, "public");
 
 app.disable("x-powered-by");
@@ -63,11 +67,17 @@ bot.start(async (ctx) => {
 });
 
 bot.command("app", async (ctx) => {
-  await ctx.reply("Open the app:", openAppKeyboard());
+  await ctx.reply(
+    "Open the app:",
+    openAppKeyboard()
+  );
 });
 
 bot.catch((error, ctx) => {
-  console.error(`Telegram bot error for update ${ctx.update.update_id}:`, error);
+  console.error(
+    `Telegram bot error for update ${ctx.update.update_id}:`,
+    error
+  );
 });
 
 async function start() {
@@ -88,7 +98,10 @@ async function start() {
 
     console.log("Telegram menu button configured.");
   } catch (error) {
-    console.warn("Could not configure the Telegram menu button:", error.message);
+    console.warn(
+      "Could not configure the Telegram menu button:",
+      error.message
+    );
   }
 
   await bot.launch({
@@ -103,11 +116,11 @@ start().catch((error) => {
   process.exit(1);
 });
 
-const shutdown = async (signal) => {
+const shutdown = (signal) => {
   console.log(`${signal} received. Stopping bot...`);
   bot.stop(signal);
-  process.exit(0);
 };
 
 process.once("SIGINT", () => shutdown("SIGINT"));
 process.once("SIGTERM", () => shutdown("SIGTERM"));
+```
